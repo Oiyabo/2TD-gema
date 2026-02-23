@@ -82,15 +82,39 @@ function renderWorld() {
 }
 
 // =============================
-// SIMPLE RANDOM BIOME (TEMP)
+// SIMPLEX NOISE ELEVATION MAP (v4 API)
 // =============================
-function randomizeBiome() {
-  const biomes = ["grass", "water", "sand", "forest", "mountain"];
+// Versi terbaru simplex-noise TIDAK lagi memakai class SimplexNoise.
+// Sekarang menggunakan factory function createNoise2D.
 
+// Tambahkan di index.html:
+// <script type="module" src="main.js"></script>
+
+// Lalu di paling atas file main.js:
+// import { createNoise2D } from 'https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/dist/esm/simplex-noise.js';
+
+import { createNoise2D } from 'https://cdn.jsdelivr.net/npm/simplex-noise@4.0.1/dist/esm/simplex-noise.js';
+
+const noise2D = createNoise2D();
+
+const NOISE_SCALE = 0.05; // semakin kecil = semakin smooth
+
+function generateElevation() {
   for (let x = 0; x < MAP_WIDTH; x++) {
     for (let y = 0; y < MAP_HEIGHT; y++) {
-      const rand = Math.floor(Math.random() * biomes.length);
-      world[x][y].biome = biomes[rand];
+      // nilai -1 sampai 1
+      let value = noise2D(x * NOISE_SCALE, y * NOISE_SCALE);
+
+      // normalize ke 0 - 1
+      value = (value + 1) / 2;
+
+      world[x][y].elevation = value;
+
+      // sementara mapping biome dari elevation
+      if (value < 0.3) world[x][y].biome = "water";
+      else if (value < 0.4) world[x][y].biome = "sand";
+      else if (value < 0.7) world[x][y].biome = "grass";
+      else world[x][y].biome = "mountain";
     }
   }
 }
@@ -100,7 +124,7 @@ function randomizeBiome() {
 // =============================
 function init() {
   createWorld();
-  randomizeBiome();
+  generateElevation();
   renderWorld();
 }
 
