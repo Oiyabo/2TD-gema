@@ -5,6 +5,66 @@
 import { CONFIG } from "./config.js";
 
 /**
+ * Biome definitions with properties
+ */
+export const BIOMES = {
+  water: {
+    name: "Water",
+    description: "Deep water bodies",
+    color: "#3498db",
+    validForStructures: { village: false, dungeon: false },
+  },
+  sand: {
+    name: "Sand",
+    description: "Beach and sandy shores",
+    color: "#f1c40f",
+    validForStructures: { village: false, dungeon: true },
+  },
+  grass: {
+    name: "Grassland",
+    description: "Grassy plains and meadows",
+    color: "#27ae60",
+    validForStructures: { village: true, dungeon: true },
+  },
+  forest: {
+    name: "Forest",
+    description: "Dense woodland",
+    color: "#2ecc71",
+    validForStructures: { village: true, dungeon: true },
+  },
+  mountain: {
+    name: "Mountain",
+    description: "Rocky highland",
+    color: "#95a5a6",
+    validForStructures: { village: false, dungeon: true },
+  },
+  snow: {
+    name: "Snow Peak",
+    description: "Snow-covered peaks",
+    color: "#ecf0f1",
+    validForStructures: { village: false, dungeon: false },
+  },
+  desert: {
+    name: "Desert",
+    description: "Hot, arid wasteland",
+    color: "#d4a574",
+    validForStructures: { village: true, dungeon: true },
+  },
+  village: {
+    name: "Village",
+    description: "Settlement with buildings",
+    color: "#c97c3a",
+    validForStructures: { village: true, dungeon: false },
+  },
+  dungeon: {
+    name: "Dungeon",
+    description: "Underground cavern",
+    color: "#555555",
+    validForStructures: { village: false, dungeon: true },
+  },
+};
+
+/**
  * Determine biome based on elevation, temperature, and humidity
  * @param {number} elevation - Elevation value (0-1)
  * @param {number} temperature - Temperature value (0-1)

@@ -19,6 +19,7 @@ import {
   normalizeNoise,
   getDomainWarpedNoise,
 } from "./noise.js";
+import { applyChunkAutotiling } from "./autotile.js";
 
 /**
  * Chunk key generator
@@ -242,6 +243,11 @@ export function generateChunk(
       chunk[x][y] = tile;
     }
   }
+
+  // =============================
+  // APPLY AUTOTILING
+  // =============================
+  applyChunkAutotiling(chunk);
 
   return chunk;
 }

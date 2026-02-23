@@ -28,6 +28,11 @@ export class Tile {
     this.structure = null; // village, dungeon, etc
     this.object = null; // tree, rock, decoration
     this.roadType = null; // road identifier
+
+    // Autotiling system
+    this.tileMask = null; // 8-neighbor bitmask
+    this.tileVariant = null; // variant info for rendering
+    this.neighborBiomes = {}; // neighbor biom information for edge rendering
   }
 
   /**
@@ -57,5 +62,8 @@ export class Tile {
     this.structure = null;
     this.object = null;
     this.roadType = null;
+    this.tileMask = null;
+    this.tileVariant = null;
+    this.neighborBiomes = {};
   }
 }
